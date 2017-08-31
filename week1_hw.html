@@ -124,6 +124,17 @@ $(document).ready(function () {
 </div>
 
 
+<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)</code></pre>
+<pre><code>## Loading tidyverse: ggplot2
+## Loading tidyverse: tibble
+## Loading tidyverse: tidyr
+## Loading tidyverse: readr
+## Loading tidyverse: purrr
+## Loading tidyverse: dplyr</code></pre>
+<pre><code>## Conflicts with tidy packages ----------------------------------------------</code></pre>
+<pre><code>## filter(): dplyr, stats
+## lag():    dplyr, stats</code></pre>
 <div id="exercise-1.43" class="section level3">
 <h3>Exercise 1.43</h3>
 <pre class="r"><code># To run a simulation on the outcome of rolling 2 dice, I will sample two dice
@@ -141,8 +152,8 @@ count(diceRolls, sum &gt;= 8)</code></pre>
 <pre><code>## # A tibble: 2 × 2
 ##   `sum &gt;= 8`     n
 ##        &lt;lgl&gt; &lt;int&gt;
-## 1      FALSE  5845
-## 2       TRUE  4155</code></pre>
+## 1      FALSE  5876
+## 2       TRUE  4124</code></pre>
 <p>After a simulation of 10,000 rolls, 4,144 of them summed to 8 or more, so the probability of rolling an 8 or higher is about .4144.</p>
 </div>
 <div id="exercise-1.44" class="section level3">
@@ -160,8 +171,8 @@ count(tetraRolls, tetra1==2|tetra2==2|tetra3==2|tetra4==2|tetra5==2)</code></pre
 <pre><code>## # A tibble: 2 × 2
 ##   `tetra1 == 2 | tetra2 == 2 | tetra3 ==...`     n
 ##                                        &lt;lgl&gt; &lt;int&gt;
-## 1                                      FALSE  2419
-## 2                                       TRUE  7581</code></pre>
+## 1                                      FALSE  2359
+## 2                                       TRUE  7641</code></pre>
 <p>After a simulation of 10,000 rolls, at least one 2 was rolled 7597 times, so the probability of rolling at least one 2 is .7595.</p>
 </div>
 
