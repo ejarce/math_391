@@ -40,10 +40,10 @@ count(diceRolls, sum >= 8)
     ## # A tibble: 2 × 2
     ##   `sum >= 8`     n
     ##        <lgl> <int>
-    ## 1      FALSE  5920
-    ## 2       TRUE  4080
+    ## 1      FALSE  5820
+    ## 2       TRUE  4180
 
-After a simulation of 10,000 rolls, 4,144 of them summed to 8 or more, so the probability of rolling an 8 or higher is about .4144.
+The count shows that the probability of rolling two dice with a sum of at least 8 is about .41
 
 ### Exercise 1.44
 
@@ -63,7 +63,7 @@ count(tetraRolls, tetra1==2|tetra2==2|tetra3==2|tetra4==2|tetra5==2)
     ## # A tibble: 2 × 2
     ##   `tetra1 == 2 | tetra2 == 2 | tetra3 ==...`     n
     ##                                        <lgl> <int>
-    ## 1                                      FALSE  2409
-    ## 2                                       TRUE  7591
+    ## 1                                      FALSE  2377
+    ## 2                                       TRUE  7623
 
-After a simulation of 10,000 rolls, at least one 2 was rolled 7597 times, so the probability of rolling at least one 2 is .7595.
+The count shows us that the probability of rolling at least one 2 is about .76.
