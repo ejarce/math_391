@@ -6,7 +6,7 @@ output: github_document
 ---
 
 ```{r setup}
-knitr::opts_chunk$set(echo = TRUE, include = FALSE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 library(tidyverse)
 ```
 
