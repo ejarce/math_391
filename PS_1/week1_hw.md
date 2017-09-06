@@ -26,6 +26,7 @@ library(tidyverse)
 # To run a simulation on the outcome of rolling 2 dice, I will sample two dice
 # separately and then make a data frame out of both samples. Meanwhile, I will
 # mutate a new variable displaying the sum of both rolls.
+set.seed(23)
 diceRoll1 <- sample(1:6, 10000, replace = TRUE)
 diceRoll2 <- sample(1:6, 10000, replace = TRUE)
 diceRolls <- data.frame(diceRoll1, diceRoll2) %>%
@@ -40,15 +41,16 @@ count(diceRolls, sum >= 8)
     ## # A tibble: 2 × 2
     ##   `sum >= 8`     n
     ##        <lgl> <int>
-    ## 1      FALSE  5820
-    ## 2       TRUE  4180
+    ## 1      FALSE  5780
+    ## 2       TRUE  4220
 
-The count shows that the probability of rolling two dice with a sum of at least 8 is about .41
+The count shows that the probability of rolling two dice with a sum of at least 8 is .4220.
 
 ### Exercise 1.44
 
 ``` r
 # We are now using a four sided die and rolling it 5 times.
+set.seed(30)
 tetra1 <- sample(1:4, 10000, replace = TRUE)
 tetra2 <- sample(1:4, 10000, replace = TRUE)
 tetra3 <- sample(1:4, 10000, replace = TRUE)
@@ -63,7 +65,7 @@ count(tetraRolls, tetra1==2|tetra2==2|tetra3==2|tetra4==2|tetra5==2)
     ## # A tibble: 2 × 2
     ##   `tetra1 == 2 | tetra2 == 2 | tetra3 ==...`     n
     ##                                        <lgl> <int>
-    ## 1                                      FALSE  2377
-    ## 2                                       TRUE  7623
+    ## 1                                      FALSE  2368
+    ## 2                                       TRUE  7632
 
-The count shows us that the probability of rolling at least one 2 is about .76.
+The count shows us that the probability of rolling at least one 2 is .7632.
