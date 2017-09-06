@@ -2,7 +2,7 @@
 title: "Problem Set 1 R exercises"
 author: "EJ Arce"
 date: "August 30, 2017"
-output: html_document
+output: github_document
 ---
 
 ```{r setup, message = FALSE}
