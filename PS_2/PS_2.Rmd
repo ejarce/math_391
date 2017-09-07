@@ -1,0 +1,21 @@
+---
+title: "Problem Set 2 R exercises"
+author: "EJ Arce"
+date: "9/7/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library("boot")
+library("dplyr")
+```
+
+### 2.28
+
+```{r}
+birthdays <- sample(1:365, 23000, replace = T)
+split <- split(birthdays, rep(1:1000, each =23))
+match <- 2 %in% count(split, group_by(rows))
+```
+
