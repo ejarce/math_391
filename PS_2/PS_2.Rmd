@@ -14,8 +14,7 @@ library("dplyr")
 ### 2.28
 
 ```{r}
-birthdays <- sample(1:365, 23000, replace = T)
-split <- split(birthdays, rep(1:1000, each =23))
-match <- 2 %in% count(split, group_by(rows))
+birthdays <- sample(1:365, 23, replace = T)
+match <- 2 %in% table(birthdays)
 ```
 
