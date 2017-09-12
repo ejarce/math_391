@@ -16,5 +16,9 @@ library("dplyr")
 ```{r}
 birthdays <- sample(1:365, 23, replace = T)
 match <- 2 %in% table(birthdays)
+rooms <- matrix(NA, ncol = 23, nrow = 1000)
+for(i in 1:1000){
+rooms[i,] <- sample(birthdays)
+}
 ```
 
