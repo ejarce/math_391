@@ -125,8 +125,17 @@ $(document).ready(function () {
 
 <div id="section" class="section level3">
 <h3>2.28</h3>
-<pre class="r"><code>birthdays &lt;- sample(1:365, 23, replace = T)
-match &lt;- 2 %in% table(birthdays)</code></pre>
+<pre class="r"><code>nsim = 10000
+count = 0
+
+for(i in 1:nsim){
+  birthdays &lt;- sample(1:365, 23, replace = T)
+  if(2 %in% table(birthdays)){
+    count = count+1
+  }
+}
+count/nsim</code></pre>
+<pre><code>## [1] 0.4933</code></pre>
 </div>
 
 
