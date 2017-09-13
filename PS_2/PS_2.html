@@ -123,19 +123,163 @@ $(document).ready(function () {
 </div>
 
 
-<div id="section" class="section level3">
-<h3>2.28</h3>
-<pre class="r"><code>nsim = 10000
+<div id="a" class="section level3">
+<h3>2.28a</h3>
+<pre class="r"><code># I will set a seed and run 10000 simulations. We will calculate the number of
+# simulations with a match (count), and keep updating that value after the each
+# simulation. Then count/nsim will give us our simulated probability.
+set.seed(30)
+nsim = 10000
 count = 0
 
 for(i in 1:nsim){
   birthdays &lt;- sample(1:365, 23, replace = T)
-  if(2 %in% table(birthdays)){
+   if(2 %in% table(birthdays)){
     count = count+1
   }
 }
 count/nsim</code></pre>
-<pre><code>## [1] 0.4933</code></pre>
+<pre><code>## [1] 0.4984</code></pre>
+<p>In a room of 23 people, there is almost a 50% chance that two people will have the same birthday.</p>
+</div>
+<div id="b" class="section level3">
+<h3>2.28b</h3>
+<pre class="r"><code># We will solve for the size of the room by repeating the loop process for
+# different sizes, in increments of 10, ranging from 10 to 50. A vector with
+# simulated probabilities for a given size will be returned.
+set.seed(30)
+size &lt;- seq(10, 50, by = 5)
+nsim = 1000
+count = 0
+probs &lt;- c()
+
+for(i in 1:length(size)){
+  for(j in 1:nsim){
+    birthdays &lt;- sample(1:365, size[i], replace = T)
+      if(2 %in% table(birthdays)){
+        count = count+1
+      }
+  }
+  probs &lt;- c(probs, count/nsim)
+}
+cbind(size, probs)</code></pre>
+<pre><code>##       size probs
+##  [1,]   10 0.119
+##  [2,]   15 0.350
+##  [3,]   20 0.764
+##  [4,]   25 1.309
+##  [5,]   30 2.005
+##  [6,]   35 2.807
+##  [7,]   40 3.684
+##  [8,]   45 4.613
+##  [9,]   50 5.585</code></pre>
+<p>We see that between 45 and 50 people are needed. To find an exact number, we will repeat the process for only sizes 45-50.</p>
+<pre class="r"><code># Repeating the same command, only specifying the size sequence.
+set.seed(23)
+size &lt;- seq(45, 50, by = 1)
+nsim = 10000
+probs &lt;- c()
+
+for(i in 1:length(size)){
+  count = 0
+  for(j in 1:nsim){
+    birthdays &lt;- sample(1:365, size[i], replace = T)
+      if(2 %in% table(birthdays)){
+        count = count+1
+      }
+  }
+  probs &lt;- c(probs, count/nsim)
+}
+cbind(size, probs)</code></pre>
+<pre><code>##      size  probs
+## [1,]   45 0.9312
+## [2,]   46 0.9374
+## [3,]   47 0.9458
+## [4,]   48 0.9527
+## [5,]   49 0.9601
+## [6,]   50 0.9623</code></pre>
+<p>A room of about 48 people will have a 95% chance that two people will have the same birthday.</p>
+</div>
+<div id="c" class="section level3">
+<h3>2.28c</h3>
+<pre class="r"><code># Repeating the command for 2.28a, changing the number of matches to 3, and the
+# number of people in a room to 50.
+set.seed(11)
+nsim = 10000
+count = 0
+
+for(i in 1:nsim){
+  birthdays &lt;- sample(1:365, 50, replace = T)
+   if(3 %in% table(birthdays)){
+    count = count+1
+  }
+}
+count/nsim</code></pre>
+<pre><code>## [1] 0.1242</code></pre>
+<p>In a room of 50 people, there is about a 12% chance that three people will have the same birthday.</p>
+</div>
+<div id="d" class="section level3">
+<h3>2.28d</h3>
+<pre class="r"><code># Repeating the command for 2.28b, changing the number of matches to 3, and
+# solving the room size for a probability of .50.
+set.seed(35)
+size &lt;- seq(10, 100, by = 10)
+nsim = 10000
+probs &lt;- c()
+
+for(i in 1:length(size)){
+  count = 0
+  for(j in 1:nsim){
+    birthdays &lt;- sample(1:365, size[i], replace = T)
+      if(3 %in% table(birthdays)){
+        count = count+1
+      }
+  }
+  probs &lt;- c(probs, count/nsim)
+}
+cbind(size, probs)</code></pre>
+<pre><code>##       size  probs
+##  [1,]   10 0.0010
+##  [2,]   20 0.0081
+##  [3,]   30 0.0287
+##  [4,]   40 0.0679
+##  [5,]   50 0.1258
+##  [6,]   60 0.2017
+##  [7,]   70 0.2882
+##  [8,]   80 0.4017
+##  [9,]   90 0.5103
+## [10,]  100 0.6213</code></pre>
+<p>Similar to b, we will repeat the process for sizes 80-90 only.</p>
+<pre class="r"><code># Running the same command with the sequance being integers from 80 to 90.
+set.seed(35)
+size &lt;- seq(80, 90, by = 1)
+nsim = 10000
+probs &lt;- c()
+
+for(i in 1:length(size)){
+  count = 0
+  for(j in 1:nsim){
+    birthdays &lt;- sample(1:365, size[i], replace = T)
+      if(3 %in% table(birthdays)){
+        count = count+1
+      }
+  }
+  probs &lt;- c(probs, count/nsim)
+}
+cbind(size, probs)</code></pre>
+<pre><code>##       size  probs
+##  [1,]   80 0.4000
+##  [2,]   81 0.4144
+##  [3,]   82 0.4227
+##  [4,]   83 0.4351
+##  [5,]   84 0.4383
+##  [6,]   85 0.4557
+##  [7,]   86 0.4705
+##  [8,]   87 0.4735
+##  [9,]   88 0.4891
+## [10,]   89 0.5013
+## [11,]   90 0.5081</code></pre>
+<p>About 89 people need to be in a room together so that the probability of three people having the same birthday is 50%.</p>
 </div>
 
 
