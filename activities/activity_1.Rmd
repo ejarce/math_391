@@ -1,0 +1,38 @@
+---
+title: "Activity 1"
+author: "EJ Arce"
+date: "9/20/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Binomial Random Variables
+
+```{r}
+dbinom(5, 10, .5)
+dbinom(50, 100, .5)
+dbinom(500, 1000, .5)
+```
+
+```{r}
+emp10 <- rbinom(1000, 10, prob =.5)
+hist(emp10, freq = FALSE)
+
+emp100 <- rbinom(1000, 100, prob =.5)
+hist(emp100, freq = FALSE)
+
+emp1000 <- rbinom(1000, 1000, prob =.5)
+hist(emp1000, freq = FALSE)
+```
+
+### Poisson Random Variables
+
+```{r}
+1 - (1/(1-exp(-3)))*(ppois(10, lambda = 3) - ppois(0,3))
+
+# Normalize the poisson function and take out the zero from the CDF.
+```
+
