@@ -125,8 +125,10 @@ $(document).ready(function () {
 
 <div id="ia" class="section level3">
 <h3>2Ia</h3>
-<p>(.9^15) + (15<em>.1</em>(.9^14)) + (15<em>7</em>(.1^2)*(.9^13))</p>
-<p>pbinom(2, size = 15, p = .1)</p>
+<pre class="r"><code>(.9^15) + (15*.1*(.9^14)) + (15*7*(.1^2)*(.9^13))</code></pre>
+<pre><code>## [1] 0.8159389</code></pre>
+<pre class="r"><code>pbinom(2, size = 15, p = .1)</code></pre>
+<pre><code>## [1] 0.8159389</code></pre>
 </div>
 <div id="ib" class="section level3">
 <h3>2IB</h3>
