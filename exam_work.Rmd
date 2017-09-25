@@ -81,10 +81,4 @@ choose(35, 13) / choose(39, 13)
 (choose(17,3)*choose(3,1) + choose(14,1))/choose(20,5)
 ```
 
-### 7C
-
-```{r}
-z <- rbinom(size = 5, n = 1000, p =.5)
-hist(z)
-```
 
