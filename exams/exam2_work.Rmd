@@ -1,0 +1,65 @@
+---
+title: "Exam 2 work"
+author: "EJ Arce"
+date: "10/26/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(dplyr)
+```
+
+### Problem 2
+
+```{r}
+# Calculate sample space
+ss <- choose(69,5)*choose(26,1)
+# Caclulate probabilities of each outcome
+j <- choose(64,5)/ss
+one.j <- choose(5,1)*choose(64,4)
+two.j <- choose(5,2)*choose(64,3)
+three <- choose(5,3)*choose(64,2)*choose(25,1)
+three.j <- choose(5,3)*choose(64,2)
+four <- choose(5,4)*choose(64,1)*choose(25,1)
+four.j <- choose(5,4)*choose(64,1)
+five <- choose(25,1)
+
+# Calculate expected payoff
+e.x <- (4*(j + one.j) + 7*(two.j + three) + 100*(three.j + four) + 50000*(four.j) + 1000000*(five) + 169000000*(1))/ss
+e.x
+```
+
+### Problem 5
+
+```{r}
+dpois(3,4.375) + dpois(4,4.375) + dpois(5,4.375) + dpois(6,4.375)
+```
+
+#### Simulation
+
+```{r}
+klay <- 11
+set.seed(klay)
+n <- 700
+u <- 160
+lambda <- n/u
+squares <- rep(0,u)
+
+for(i in 1:n){
+  i <- sample(1:u, 1)
+  squares[i] <- squares[i] + 1
+}
+squares
+data <- as.data.frame(table(squares))
+data$squares <- as.numeric(data$squares)
+data <- data %>%
+  mutate(prob = Freq/160)
+data
+# Calculate simulated proportion of squares with 3, 4, 5, or 6 blood cells.
+data <- data %>%
+  filter(as.numeric(squares)>2) %>%
+  filter(as.numeric(squares)<7)
+sum(data$prob)
+```
+
