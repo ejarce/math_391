@@ -46,3 +46,16 @@ p.province <- (gold3 + gold2 + gold1 + gold0)/ss
 p.province
 ```
 
+NOTE: THIS DOES NOT CONSIDER THE CHANCE OF GAINING MORE CARDS TO DRAW
+
+### 2
+
+Suppose the following:
+
+* game there is one province left and everyone has the same deck as above
+* you are ordered third and have 5 less estate than the player in first place
+* you have enough money to buy the last province
+
+What is the probability you get cursed and cannot win the game?
+
+notes: you can get cursed, but you can prevent the curse with a moat
