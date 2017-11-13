@@ -1,0 +1,28 @@
+---
+title: "class activity"
+author: "EJ Arce"
+date: "11/8/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+### Example 1
+
+```{r}
+ex1 <- sqrt(runif(10000))
+hist(ex1)
+```
+
+### Example 2
+
+```{r}
+lambda <- 3
+ex2 <- (-log(runif(10000)))/lambda
+hist(ex2)
+```
+
+

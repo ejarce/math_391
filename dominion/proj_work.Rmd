@@ -1,0 +1,48 @@
+---
+title: "Late game situations"
+author: "EJ Arce"
+date: "11/12/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Late game probability situations
+#### 1
+
+Suppose each player is tied and has the following deck
+
+* 8 copper
+* 3 silver
+* 3 gold
+* 2 cellar
+* 2 village
+* 2 throne rooms
+* 2 witch
+
+Suppose there is one province left. Find the probability that a player's hand has enough money to buy the last province and win the game.
+
+```{r}
+# Calculate sample space
+ss <- choose(22,5)
+# Calculate combinations of hands with at least 8 dollars
+
+# 3 golds and 2 non-golds
+gold3 <- choose(3,3)*choose(19,2)
+
+# 2 golds and either: >= 1 silver, 2 non-gold or 0 silvers, >= 2 coppers
+gold2 <- choose(3,2)*(choose(3,1)*choose(18,2) + choose(8,2)*choose(14,1))
+
+# 1 gold and either: 1 silver, 3 copper or 2 silver, 1 copper, 1 non-gold
+gold1 <- choose(3,1)*(choose(3,1)*choose(8,3) +
+                        choose(3,2)*choose(8,1)*choose(16,1))
+
+# 0 gold, 3 silvers, 2 coppers
+gold0 <- choose(3,3)*choose(8,2)
+
+p.province <- (gold3 + gold2 + gold1 + gold0)/ss
+p.province
+```
+

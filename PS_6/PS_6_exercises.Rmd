@@ -1,0 +1,95 @@
+---
+title: "Problem set 6 exercises"
+author: "EJ Arce"
+date: "11/6/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### 26
+
+With replacement
+
+```{r}
+set.seed(23)
+hyper <- function(n){
+  count <- 0
+  size = .1*n
+  nred = .25*n
+  interest = .02*n
+  reds <- replicate(1000, sum(sample(1:n, size, replace=T)<=nred))
+  for(j in 1:1000){
+    if(reds[j] <= interest){
+      count = count + 1
+      }
+    }
+count/n
+}
+hyper(1000)
+hyper(10000)
+hyper(1000000)
+```
+
+Without replacement
+
+```{r}
+set.seed(11)
+hyper <- function(n){
+  count <- 0
+  size = .1*n
+  nred = .25*n
+  interest = .02*n
+  reds <- replicate(1000, sum(sample(1:n, size, replace=F)<=nred))
+  for(j in 1:1000){
+    if(reds[j] <= interest){
+      count = count + 1
+      }
+    }
+count/n
+}
+hyper(1000)
+hyper(10000)
+hyper(1000000)
+```
+
+
+### 37
+
+```{r}
+# Building the function
+coupon <-function(x) {
+collection <- 1:x
+current <- numeric(x)
+count <- 0
+while(sum(current)<x)
+{
+	i <- sample(collection,1)
+	current[i] <- 1
+	count <- count + 1
+}
+count
+}
+
+# Running simulations to find mean and standard deviation of the number of draws required to obtain all 10 and all 52 coupons
+
+sims10 <- c()
+sims52 <-c()
+
+for(i in 1:1000){
+  sims10[i] <- coupon(10)
+}
+# Mean and standard deviation for n = 10
+mean(sims10)
+sqrt(var(sims10))
+
+for(i in 1:1000){
+  sims52[i] <- coupon(52)
+}
+# Mean and standard deviation for n = 52
+mean(sims52)
+sqrt(var(sims52))
+```
+

@@ -1,0 +1,31 @@
+---
+title: "scratchwork"
+author: "EJ Arce"
+date: "11/4/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+choose(52,5)/(choose(4,3)*choose(13,1)*choose(12,1)*choose(4,2))
+
+sqrt((20*50*480*450)/(500*500*499))
+```
+
+```{r}
+((choose(50,2)*choose(450,18)) + (choose(50,1)*choose(450,19)) + choose(450,20))/choose(500,20)
+
+1 - phyper(q=2, m=50, n=450,k=20)
+```
+
+```{r}
+4*6*7*(.2^2)*(.8^10)*(.32^2)
+```
+
+```{r}
+(8*(.8^14)*.2) + (.8^16)
+```
+
