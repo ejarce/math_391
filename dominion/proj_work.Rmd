@@ -10,23 +10,25 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ### Late game probability situations
+
+For the following problems, suppose that each player's deck must be re-shuffled after every turn.
+
 #### 1
 
-Suppose each player is tied and has the following deck
+Suppose each player is tied and has the following deck:
 
 * 8 copper
 * 3 silver
 * 3 gold
-* 2 cellar
-* 2 village
-* 2 throne rooms
-* 2 witch
+* 3 duchies
+* 3 provinces
 
 Suppose there is one province left. Find the probability that a player's hand has enough money to buy the last province and win the game.
 
+
 ```{r}
 # Calculate sample space
-ss <- choose(22,5)
+ss.1 <- choose(22,5)
 # Calculate combinations of hands with at least 8 dollars
 
 # 3 golds and 2 non-golds
@@ -42,20 +44,124 @@ gold1 <- choose(3,1)*(choose(3,1)*choose(8,3) +
 # 0 gold, 3 silvers, 2 coppers
 gold0 <- choose(3,3)*choose(8,2)
 
-p.province <- (gold3 + gold2 + gold1 + gold0)/ss
+p.province <- (gold3 + gold2 + gold1 + gold0)/ss.1
 p.province
 ```
 
-NOTE: THIS DOES NOT CONSIDER THE CHANCE OF GAINING MORE CARDS TO DRAW
+##### Simulating 1
 
-### 2
+```{r}
+# Need a for loop returning 5 cards of random digits indicating money value
+# 8 0's, 8 1's, 3 2's, 3 3's
 
-Suppose the following:
+l <- rbind(c(0,0,0,0,0,0,0,0,
+            1,1,1,1,1,1,1,1,
+            2,2,2,3,3,3))
+set.seed(30)
+count <- 0
 
-* game there is one province left and everyone has the same deck as above
-* you are ordered third and have 5 less estate than the player in first place
-* you have enough money to buy the last province
+for(i in 1:10000){
+  hands <- sample(l, 5, replace = F)
+  if(sum(hands) >= 8){
+    count = count + 1
+  }
+}
+count/10000
+```
 
-What is the probability you get cursed and cannot win the game?
 
-notes: you can get cursed, but you can prevent the curse with a moat
+#### 2
+
+Assume the game will only last for 20 more rounds and that buying is not permitted during this period. Suppose each player has the following cards:
+
+* 8 copper
+* 1 silver
+* 4 gold
+* 7 estates
+* 2 duchies
+* 3 provinces
+* 5 witches
+* 1 moat
+* 2 festivals
+
+In this version, players will reshuffle the deck after each of their turns. If a witch is drawn, every player wants to play it as their action.
+
+How many curses do you expect to counter with a moat?
+
+To counter a witch with a moat in a given round, an opponent must play a witch while your hand contains a moat.
+
+```{r}
+# A player can have 5 cards if the moat is not picked or 7 cards if the moat is
+# picked. There are 33 cards in your deck.
+ss.2 <- choose(32,5) + choose(1,1)*choose(32,6)
+
+# A witch drawn in a hand of 5 cards without a moat or 7 cards with a moat by 
+# either opponent.
+p.witch <- 2*(choose(5,1)*choose(32,4) +
+                choose(1,1)*choose(31,5)*choose(5,1)) / ss.2
+
+# A moat must be contained in a hand of 5
+p.moat <- choose(1,1)*choose(33,4)/choose(33,5)
+
+# Probability of drawing a moat and either opponent drawing a witch.
+p.counter <- p.moat*p.witch
+p.counter
+```
+
+The probability of an opponent playing a curse and you being able to counter with a moat is .00531. The number of these counters in 20 rounds (40 opponent turns) follows a binomial distribution with n = 40, and p = .00531. Thus the expected number of counters is np
+
+```{r}
+p.counter*40
+```
+
+You should expect to counter 3.63 curse plays.
+
+##### Simulation
+
+* 8 copper
+* 1 silver
+* 4 gold
+* 7 estates
+* 2 duchies
+* 3 provinces
+* 5 witches
+* 1 moat
+* 2 festivals
+
+```{r}
+library(dplyr)
+card <- cbind(c(0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,1,2,2,2,2,2))
+cards <- data.frame(card)
+
+sims <- c()
+nsim <- 1000
+
+for(i in 1:nsim){
+  count = 0
+  for(j in 1:40){
+    opphands <- sample(1:nrow(cards),5,replace = F)
+    deck <- data.frame(cards[-opphands,])
+    opphands <- data.frame(cards[opphands,])
+    opphands <- rename(opphands, card = cards.opphands...)
+    if(1 %in% opphands$card){
+      plus2 <- sample(1:nrow(deck), 2, replace = F)
+      plus2 <- data.frame(deck[plus2,])
+      plus2 <- rename(plus2, card = deck.plus2...)
+      opphands <- rbind(plus2,opphands)
+    }
+  if(2 %in%  opphands$card){
+    myhand <- sample(1:nrow(cards), 5, replace = F)
+    myhand <- data.frame(cards[myhand,])
+    if(1 %in% myhand$cards.myhand...){
+      count = count + 1
+      }
+    }
+  }
+  sims <- c(sims, count)
+}
+  
+mean(sims)
+```
+

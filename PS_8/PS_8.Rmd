@@ -1,0 +1,39 @@
+---
+title: "PS_8"
+author: "EJ Arce"
+date: "11/18/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+```
+
+### 58.
+
+```{r}
+library(dplyr)
+set.seed(30)
+x <- rexp(1000, rate = 1)
+set.seed(23)
+y <- rexp(1000, rate = 1)
+p <- x/y
+d <- as.data.frame(p)
+prop <- filter(d,p<1)
+nrow(prop)/nrow(d)
+```
+
+### 60.
+
+The histogram represents the simulated data while the line represents the theoretical density:
+
+```{r}
+R <- runif(1000, 1, 4)
+A <- pi*R^2
+mean(A)
+x <- seq(pi,16*pi,.1)
+y <- 1/(6*sqrt(x*pi))
+hist(A, probability = TRUE)
+lines(x,y)
+```
+
