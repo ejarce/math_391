@@ -1,0 +1,82 @@
+---
+title: "Simulations"
+author: "EJ Arce"
+date: "12/3/2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##### Simulating 1
+
+```{r}
+# Need a for loop returning 5 cards of random digits indicating money value
+# 8 0's, 8 1's, 3 2's, 3 3's
+
+l <- rbind(c(0,0,0,0,0,0,0,0,
+            1,1,1,1,1,1,1,1,
+            2,2,2,3,3,3))
+set.seed(30)
+count <- 0
+
+for(i in 1:10000){
+  hands <- sample(l, 5, replace = F)
+  if(sum(hands) >= 8){
+    count = count + 1
+  }
+}
+count/10000
+```
+
+
+##### Simulating 2
+
+* 8 copper
+* 1 silver
+* 4 gold
+* 7 estates
+* 2 duchies
+* 3 provinces
+* 5 witches
+* 1 moat
+* 2 festivals
+
+```{r}
+library(dplyr)
+card <- cbind(c(0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,0,0,0,0,0,0,0,0,0,
+                0,0,0,1,2,2,2,2,2))
+cards <- data.frame(card)
+
+sims <- c()
+nsim <- 1000
+
+for(i in 1:nsim){
+  count = 0
+  for(j in 1:40){
+    opphands <- sample(1:nrow(cards),5,replace = F)
+    deck <- data.frame(cards[-opphands,])
+    opphands <- data.frame(cards[opphands,])
+    opphands <- rename(opphands, card = cards.opphands...)
+    if(1 %in% opphands$card){
+      plus2 <- sample(1:nrow(deck), 2, replace = F)
+      plus2 <- data.frame(deck[plus2,])
+      plus2 <- rename(plus2, card = deck.plus2...)
+      opphands <- rbind(plus2,opphands)
+    }
+  if(2 %in%  opphands$card){
+    myhand <- sample(1:nrow(cards), 5, replace = F)
+    myhand <- data.frame(cards[myhand,])
+    if(1 %in% myhand$cards.myhand...){
+      count = count + 1
+      }
+    }
+  }
+  sims <- c(sims, count)
+}
+  
+mean(sims)
+```
+
